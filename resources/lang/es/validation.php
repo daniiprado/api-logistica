@@ -90,6 +90,7 @@ return [
     'not_in'               => 'El campo :attribute es inválido.',
     'not_regex'            => 'El formato del campo :attribute no es válido.',
     'numeric'              => 'El campo :attribute debe ser numérico.',
+    'order_by'             => 'El campo :attribute sólo puede contener los valores "asc" o "desc"',
     'present'              => 'El campo :attribute debe estar presente.',
     'regex'                => 'El formato de :attribute es inválido.',
     'required'             => 'El campo :attribute es obligatorio.',
@@ -201,5 +202,8 @@ return [
         'time'                  => 'hora',
         'subject'               => 'asunto',
         'message'               => 'mensaje',
+        'per_page'              => 'por página',
+        'order_by'              =>  'ordenado por',
+        'direction'             =>  'dirección',
     ],
 ];

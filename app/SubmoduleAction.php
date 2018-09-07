@@ -70,4 +70,15 @@ class SubmoduleAction extends Model implements Auditable
     {
         return $this->belongsTo( Submodule::class );
     }
+
+    /**
+     * Submodules belongs to permission
+     *
+     * @Relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function permission()
+    {
+        return $this->belongsTo( Permission::class );
+    }
 }

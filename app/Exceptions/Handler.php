@@ -62,7 +62,7 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function render($request, Exception $exception)
     {
@@ -177,14 +177,6 @@ class Handler extends ExceptionHandler
                 422
             )
             : $this->invalid($request, $e);
-
-//        if ($e->response) {
-//            return $e->response;
-//        }
-
-//        return $request->expectsJson()
-//            ? $this->invalidJson($request, $e)
-//            : $this->invalid($request, $e);
     }
 
     /**
@@ -199,8 +191,5 @@ class Handler extends ExceptionHandler
         return $request->expectsJson()
             ?   $this->errorResponse(__('validation.handler.unauthenticated'), 401)
             :   redirect()->guest(route('login'));
-//        return $request->expectsJson()
-//            ? response()->json(['message' => $exception->getMessage()], 401)
-//            : redirect()->guest(route('login'));
     }
 }

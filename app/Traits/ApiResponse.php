@@ -2,7 +2,6 @@
 
 namespace Logistic\Traits;
 
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 trait ApiResponse
@@ -19,17 +18,13 @@ trait ApiResponse
         ], $code);
     }
 
-    protected function collectionResponse( AnonymousResourceCollection $collection, $code = 200 )
+    protected function collectionResponse( JsonResource $collection, $code = 200 )
     {
-        return $this->success([
-            'data'  =>  $collection
-        ], $code);
+        return $collection->response()->setStatusCode( $code );
     }
 
     protected function singleResponse(JsonResource $instance, $code = 200)
     {
-        return $this->success([
-            'data'  =>  $instance,
-        ], $code);
+        return $instance->response()->setStatusCode( $code );
     }
 }

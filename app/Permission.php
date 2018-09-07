@@ -26,4 +26,20 @@ class Permission extends EntrustPermission
         'description'   =>  'string',
         'submodule_action_id'   => 'integer'
     ];
+
+    /*
+     * ---------------------------------------------------------
+     * Eloquent Relationship
+     * ---------------------------------------------------------
+     */
+
+    /**
+     * Permission has one submodule action
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function action()
+    {
+        return $this->hasOne( SubmoduleAction::class );
+    }
 }

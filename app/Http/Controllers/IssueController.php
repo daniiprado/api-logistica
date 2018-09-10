@@ -13,12 +13,12 @@ class IssueController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         return $this->collectionResponse(
-            IssueResource::collection( Issue::paginate( 15 ) ),
+            IssueResource::collection( new Issue ),
             200
         );
     }
@@ -27,7 +27,7 @@ class IssueController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param StoreIssueRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreIssueRequest $request)
     {
@@ -43,7 +43,7 @@ class IssueController extends ApiController
      * Display the specified resource.
      *
      * @param Issue $issue
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Issue $issue)
     {
@@ -58,7 +58,7 @@ class IssueController extends ApiController
      *
      * @param UpdateIssueRequest $request
      * @param Issue $issue
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateIssueRequest $request, Issue $issue)
     {
@@ -73,7 +73,7 @@ class IssueController extends ApiController
      * Remove the specified resource from storage.
      *
      * @param Issue $issue
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
     public function destroy(Issue $issue)

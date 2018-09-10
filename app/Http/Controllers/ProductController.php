@@ -17,7 +17,7 @@ class ProductController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            ProductResource::collection( Product::paginate( 15 ) ),
+            ProductResource::collection( new Product ),
             200
         );
     }

@@ -33,13 +33,6 @@ class ApiController extends Controller
     protected $direction;
 
     /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $relations;
-
-    /**
      * ApiController constructor.
      */
     public function __construct()
@@ -48,13 +41,11 @@ class ApiController extends Controller
             'per_page'   =>  'integer|min:2|max:50',
             'order_by'   =>  'string|min:2|max:20',
             'direction'  =>  ['string', new OrderBy],
-            'with'       => 'string'
         ]);
         $this->middleware('auth:api');
         $this->per_page = $this->getPerPageAttribute();
         $this->order_by = $this->getOrderByAttribute();
         $this->direction = $this->getDirectionAttribute();
-        $this->relations = $this->getWithAttribute();
     }
 
     /**
@@ -84,21 +75,12 @@ class ApiController extends Controller
      */
     protected function getDirectionAttribute()
     {
-         return ( request()->has('direction') ) ? (string) request()->get('direction') : 'acs';
-    }
-
-    /**
-     * @return array|null
-     */
-    protected function getWithAttribute()
-    {
-        $with = request()->has('with') ? request()->get('with') : null;
-        $with = explode(',', $with);
-        return ( count( $with ) > 0 ) ? $with : null;
+         return ( request()->has('direction') ) ? (string) request()->get('direction') : 'asc';
     }
 
     protected function getModel(Model $model)
     {
-        
+        $collection = ( $this->direction === 'asc' ) ? $model->orderBy( $this->order_by ) : $model->orderByDesc( $this->order_by );
+        return $collection->paginate( $this->per_page );
     }
 }

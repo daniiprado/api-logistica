@@ -5,7 +5,6 @@ namespace Logistic\Http\Controllers;
 use Logistic\Company;
 use Logistic\Http\Requests\StoreCompanyRequest;
 use Logistic\Http\Requests\UpdateCompanyRequest;
-use Logistic\Http\Resources\Companies;
 use Logistic\Http\Resources\CompanyResource;
 
 class CompanyController extends ApiController
@@ -13,15 +12,13 @@ class CompanyController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @return CompanyController
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         return $this->collectionResponse(
             CompanyResource::collection(
-                Company::with( $this->relations )
-                        ->orderBy($this->order_by, $this->direction)
-                        ->paginate( $this->per_page )
+                $this->getModel( new Company )
             ),
             200
         );
@@ -31,7 +28,7 @@ class CompanyController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param StoreCompanyRequest $request
-     * @return CompanyController
+     * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
     public function store(StoreCompanyRequest $request)
@@ -48,7 +45,7 @@ class CompanyController extends ApiController
      * Display the specified resource.
      *
      * @param Company $company
-     * @return CompanyController
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Company $company)
     {
@@ -63,7 +60,7 @@ class CompanyController extends ApiController
      *
      * @param UpdateCompanyRequest $request
      * @param Company $company
-     * @return CompanyController
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
@@ -78,7 +75,7 @@ class CompanyController extends ApiController
      * Remove the specified resource from storage.
      *
      * @param Company $company
-     * @return CompanyController
+     * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
     public function destroy(Company $company)

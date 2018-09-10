@@ -18,7 +18,7 @@ class SubmoduleController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            SubmoduleResource::collection( Submodule::paginate( 15 ) ),
+            SubmoduleResource::collection( new Submodule ),
             200
         );
     }

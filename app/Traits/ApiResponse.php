@@ -18,12 +18,22 @@ trait ApiResponse
         ], $code);
     }
 
-    protected function collectionResponse( JsonResource $collection, $code = 200 )
+    /**
+     * @param JsonResource $collection
+     * @param int $code
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function collectionResponse(JsonResource $collection, int $code = 200 )
     {
         return $collection->response()->setStatusCode( $code );
     }
 
-    protected function singleResponse(JsonResource $instance, $code = 200)
+    /**
+     * @param JsonResource $instance
+     * @param int $code
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function singleResponse(JsonResource $instance, int $code = 200)
     {
         return $instance->response()->setStatusCode( $code );
     }

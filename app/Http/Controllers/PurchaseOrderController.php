@@ -17,7 +17,7 @@ class PurchaseOrderController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            PurchaseOrderResource::collection( PurchaseOrder::paginate( 15 ) ),
+            PurchaseOrderResource::collection( new PurchaseOrder ),
             200
         );
     }

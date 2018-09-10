@@ -17,7 +17,7 @@ class RoleController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            RoleResource::collection( Role::paginate( 15 ) ),
+            RoleResource::collection( new Role ),
             200
         );
     }

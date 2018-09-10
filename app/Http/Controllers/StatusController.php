@@ -17,7 +17,7 @@ class StatusController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            StatusResource::collection( Status::paginate( 15 ) ),
+            StatusResource::collection( new Status ),
             200
         );
     }

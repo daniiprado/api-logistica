@@ -14,7 +14,7 @@ class UserRoleController extends ApiController
      * Display a listing of the resource.
      *
      * @param User $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(User $user)
     {
@@ -33,7 +33,7 @@ class UserRoleController extends ApiController
      *
      * @param StoreUserRoleRequest $request
      * @param User $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreUserRoleRequest $request, User $user)
     {
@@ -53,7 +53,7 @@ class UserRoleController extends ApiController
      *
      * @param User $user
      * @param Role $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(User $user, Role $role)
     {
@@ -94,7 +94,7 @@ class UserRoleController extends ApiController
      *
      * @param User $user
      * @param Role $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(User $user, Role $role)
     {

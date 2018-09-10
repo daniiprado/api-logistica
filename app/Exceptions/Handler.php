@@ -7,6 +7,7 @@ use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
@@ -85,6 +86,9 @@ class Handler extends ExceptionHandler
 
             if ($exception instanceof NotFoundHttpException)
                 return $this->errorResponse(__('validation.handler.resource_not_found_url'), 404);
+
+            if ($exception instanceof RelationNotFoundException)
+                return $this->errorResponse(__('validation.handler.relation_not_found'), 404);
 
             if ($exception instanceof AuthorizationException)
                 return $this->errorResponse(__('validation.handler.unauthorized'), 403);

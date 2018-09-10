@@ -12,12 +12,12 @@ class ModuleController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         return $this->collectionResponse(
-            ModuleResource::collection( Module::paginate( 15 ) ),
+            ModuleResource::collection( new Module ),
             200
         );
     }
@@ -26,7 +26,7 @@ class ModuleController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param StoreModuleRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreModuleRequest $request)
     {
@@ -42,7 +42,7 @@ class ModuleController extends ApiController
      * Display the specified resource.
      *
      * @param Module $module
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Module $module)
     {
@@ -57,7 +57,7 @@ class ModuleController extends ApiController
      *
      * @param UpdateModuleRequest $request
      * @param Module $module
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateModuleRequest $request, Module $module)
     {
@@ -72,7 +72,7 @@ class ModuleController extends ApiController
      * Remove the specified resource from storage.
      *
      * @param Module $module
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
     public function destroy(Module $module)

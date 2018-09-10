@@ -17,7 +17,7 @@ class ProductsOrderController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            ProductsOrderResource::collection( ProductsOrder::paginate( 15 ) ),
+            ProductsOrderResource::collection( new ProductsOrder ),
             200
         );
     }

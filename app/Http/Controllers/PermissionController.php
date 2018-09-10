@@ -12,12 +12,12 @@ class PermissionController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         return $this->collectionResponse(
-            PermissionResource::collection( Permission::paginate( 15 ) ),
+            PermissionResource::collection( new Permission ),
             200
         );
     }
@@ -26,7 +26,7 @@ class PermissionController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param StorePermissionRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StorePermissionRequest $request)
     {
@@ -42,7 +42,7 @@ class PermissionController extends ApiController
      * Display the specified resource.
      *
      * @param Permission $permission
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Permission $permission)
     {
@@ -57,7 +57,7 @@ class PermissionController extends ApiController
      *
      * @param UpdatePermissionRequest $request
      * @param Permission $permission
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
@@ -72,7 +72,7 @@ class PermissionController extends ApiController
      * Remove the specified resource from storage.
      *
      * @param Permission $permission
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
     public function destroy(Permission $permission)

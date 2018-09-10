@@ -14,7 +14,7 @@ class RolePermissionController extends ApiController
      * Display a listing of the resource.
      *
      * @param Role $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Role $role)
     {
@@ -30,7 +30,7 @@ class RolePermissionController extends ApiController
      *
      * @param StoreRolePermissionRequest $request
      * @param Role $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreRolePermissionRequest $request, Role $role)
     {
@@ -47,7 +47,7 @@ class RolePermissionController extends ApiController
      * @param  \Illuminate\Http\Request $request
      * @param Role $role
      * @param Permission $permission
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateRolePermissionRequest $request, Role $role, Permission $permission)
     {
@@ -64,7 +64,7 @@ class RolePermissionController extends ApiController
      *
      * @param Role $role
      * @param Permission $permission
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Role $role, Permission $permission)
     {

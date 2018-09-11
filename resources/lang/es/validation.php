@@ -149,6 +149,7 @@ return [
         'unauthenticated'           => 'No estás autenticado para esta solicitud.',
         'unauthorized'              => 'No estás autorizado para esta solicitud.',
         'relation_not_found'        => 'La relación solicitada no existe.',
+        'column_not_found'          => 'La columna solicitada no existe.',
         'relation_not_delete'       => 'El recurso no puede ser eliminado, contiene información asociada.',
         'validation_failed'         => 'La información dada no pasó la validación.',
         'syntax_error'              => 'la sintaxis de la entidad de solicitud no es correcta.',

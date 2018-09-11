@@ -111,6 +111,9 @@ class Handler extends ExceptionHandler
                 if ($exception->errorInfo[0] === "23503")
                     return $this->errorResponse(__('validation.handler.relation_not_delete'), 409);
 
+                if ($exception->errorInfo[0] === "42S22")
+                    return $this->errorResponse( 'no existe la columna' , 409);
+
                 if ($code == 1451)
                     return $this->errorResponse(__('validation.handler.relation_not_delete'), 409);
 

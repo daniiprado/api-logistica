@@ -33,19 +33,28 @@ class ApiController extends Controller
     protected $direction;
 
     /**
+     * The attribute to order collection ascending or descending
+     *
+     * @var string
+     */
+    protected $query;
+
+    /**
      * ApiController constructor.
      */
     public function __construct()
     {
         Validator::validate( request()->all(), [
-            'per_page'   =>  'integer|min:2|max:50',
-            'order_by'   =>  'string|min:2|max:20',
-            'direction'  =>  ['string', new OrderBy],
+            'query'      =>  'nullable|string',
+            'per_page'   =>  'nullable|integer|min:2|max:100',
+            'order_by'   =>  'nullable|string|min:2|max:20',
+            'direction'  =>  ['nullable', 'string', new OrderBy],
         ]);
         $this->middleware('auth:api');
         $this->per_page = $this->getPerPageAttribute();
         $this->order_by = $this->getOrderByAttribute();
         $this->direction = $this->getDirectionAttribute();
+        $this->query = $this->getQueryAttribute();
     }
 
     /**
@@ -55,7 +64,7 @@ class ApiController extends Controller
      */
     protected function getPerPageAttribute()
     {
-        return ( request()->has('per_page') ) ? (int) request()->get('per_page') : 15;
+        return ( request()->has('per_page') ) ? (int) request()->get('per_page') : 2;
     }
 
     /**
@@ -78,9 +87,25 @@ class ApiController extends Controller
          return ( request()->has('direction') ) ? (string) request()->get('direction') : 'asc';
     }
 
+    /**
+     * Check and get the data ordering direction
+     *
+     * @return string
+     */
+    protected function getQueryAttribute()
+    {
+         return ( request()->has('query') ) ? (string) request()->get('query') : null;
+    }
+
     protected function getModel(Model $model)
     {
-        $collection = ( $this->direction === 'asc' ) ? $model->orderBy( $this->order_by ) : $model->orderByDesc( $this->order_by );
+        $order_by = ( in_array( $this->order_by, $model->getFillable() ) ) ? $this->order_by : 'id';
+        $collection = ( $this->direction === 'asc' ) ? $model->orderBy( $order_by ) : $model->orderByDesc( $order_by );
+        if ( $this->query ) {
+            foreach ( $model->getFillable() as $column ) {
+                $collection->orWhere( $column, 'LIKE', '%' . $this->query . '%' );
+            }
+        }
         return $collection->paginate( $this->per_page );
     }
 }

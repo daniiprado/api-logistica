@@ -147,6 +147,7 @@ return [
         'unauthenticated'           => 'You are not authenticated for this request.',
         'unauthorized'              => 'You are not authorized for this request.',
         'relation_not_found'        => 'The requested relation does not exist.',
+        'column_not_found'          => 'The requested column does not exist.',
         'relation_not_delete'       => 'The relation does not remove.',
         'validation_failed'         => 'The given data failed to pass validation.',
         'syntax_error'              => 'The ssyntax of the request entity is not correct.',

@@ -17,7 +17,7 @@ class ModuleController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            ModuleResource::collection( new Module ),
+            ModuleResource::collection( $this->getModel( new Module ) ),
             200
         );
     }

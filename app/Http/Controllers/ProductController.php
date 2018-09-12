@@ -17,7 +17,7 @@ class ProductController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            ProductResource::collection( new Product ),
+            ProductResource::collection( $this->getModel( new Product ) ),
             200
         );
     }

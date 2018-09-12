@@ -18,7 +18,7 @@ class SubmoduleController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            SubmoduleResource::collection( new Submodule ),
+            SubmoduleResource::collection( $this->getModel( new Submodule ) ),
             200
         );
     }

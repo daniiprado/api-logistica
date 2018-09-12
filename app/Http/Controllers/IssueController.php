@@ -18,7 +18,7 @@ class IssueController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            IssueResource::collection( new Issue ),
+            IssueResource::collection( $this->getModel( new Issue ) ),
             200
         );
     }

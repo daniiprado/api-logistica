@@ -159,6 +159,7 @@ return [
         'service_unavailable'       => 'El servicio no está disponible, vuelve a intentarlo en un momento.',
         'token_mismatch'            => 'El token no coincide con el solicitud, por favor intenta recargar la página.',
         'max_attempts'              => 'Demasiados intentos, por favor ralentice la solicitud.',
+        'connection_refused'        => ':db ha rechazado la conexión.',
     ],
 
     /*

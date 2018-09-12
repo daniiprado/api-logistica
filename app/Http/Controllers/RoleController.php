@@ -17,7 +17,7 @@ class RoleController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            RoleResource::collection( new Role ),
+            RoleResource::collection( $this->getModel( new Role ) ),
             200
         );
     }

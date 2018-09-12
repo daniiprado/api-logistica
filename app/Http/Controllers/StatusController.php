@@ -17,7 +17,7 @@ class StatusController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            StatusResource::collection( new Status ),
+            StatusResource::collection( $this->getModel( new Status )),
             200
         );
     }

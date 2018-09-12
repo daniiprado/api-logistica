@@ -157,6 +157,7 @@ return [
         'service_unavailable'       => 'The service unavailable, try again in a moment.',
         'token_mismatch'            => 'The token does not match the request, please try to reload the page.',
         'max_attempts'              => 'Too many attempts, please slow down the request.',
+        'connection_refused'        => ':db connection refused.',
     ],
 
     /*

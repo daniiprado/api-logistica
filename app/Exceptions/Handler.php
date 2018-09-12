@@ -6,6 +6,7 @@ use ErrorException;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
+use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Database\QueryException;
@@ -14,6 +15,7 @@ use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Validation\ValidationException;
 use Logistic\Traits\ApiResponse;
 use PDOException;
+use Predis\Connection\ConnectionException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Auth\{ AuthenticationException, Access\AuthorizationException };
@@ -96,11 +98,21 @@ class Handler extends ExceptionHandler
             if ($exception instanceof MethodNotAllowedHttpException)
                 return $this->errorResponse(__('validation.handler.method_allow'), 405);
 
+            if ($exception instanceof ConnectionException)
+                return $this->errorResponse(__('validation.handler.connection_refused', ['db' => 'Redis']), 405);
+
+            if ( $exception instanceof Connection) {
+                dd($exception);
+            }
+
             if ($exception instanceof HttpException)
                 return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
 
             if ( $exception instanceof ErrorException )
                 return $this->errorResponse(__('validation.handler.unexpected_failure'), 500);
+
+            if ($exception instanceof PDOException)
+                return $exception->getCode();
 
             if ($exception instanceof FatalThrowableError)
                 return $this->errorResponse(__('validation.handler.conflict'), 409);
@@ -112,7 +124,10 @@ class Handler extends ExceptionHandler
                     return $this->errorResponse(__('validation.handler.relation_not_delete'), 409);
 
                 if ($exception->errorInfo[0] === "42S22")
-                    return $this->errorResponse( 'no existe la columna' , 409);
+                    return $this->errorResponse(__('validation.handler.column_not_found'), 409);
+
+                if ($code == 2002)
+                    return $this->errorResponse( __('validation.handler.connection_refused', ['db' => 'MySQL'] ), 405);
 
                 if ($code == 1451)
                     return $this->errorResponse(__('validation.handler.relation_not_delete'), 409);
@@ -158,6 +173,9 @@ class Handler extends ExceptionHandler
         if ($exception instanceof PDOException) {
             if ($exception->getCode() == 7)
                 return response()->view('errors.503');
+
+            if ($exception->getCode() == 2002)
+                return $this->errorResponse( __('validation.handler.connection_refused', ['db' => 'MySQL'] ), 405);
         }
 
         if ($exception instanceof HttpException) {

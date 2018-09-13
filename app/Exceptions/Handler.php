@@ -126,6 +126,9 @@ class Handler extends ExceptionHandler
                 if ($exception->errorInfo[0] === "42S22")
                     return $this->errorResponse(__('validation.handler.column_not_found'), 409);
 
+                if ($exception->errorInfo[0] === "42S02")
+                    return $this->errorResponse(__('validation.handler.column_not_found'), 409);
+
                 if ($code == 2002)
                     return $this->errorResponse( __('validation.handler.connection_refused', ['db' => 'MySQL'] ), 405);
 

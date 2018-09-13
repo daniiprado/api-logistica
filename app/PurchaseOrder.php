@@ -12,6 +12,13 @@ class PurchaseOrder extends Model implements Auditable
     use SoftDeletes, Auditor;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'purchases_orders';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

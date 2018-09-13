@@ -14,9 +14,13 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(Logistic\PurchaseOrder::class, function (Faker $faker) {
+    $status = \Logistic\Status::all()->pluck('id');
+    $users  = \Logistic\User::all(['id'])->pluck('id');
     return [
         'delivery_address'  => $faker->address,
         'delivery_at'       => $faker->dateTime('+ 60 days', 'America/Bogota'),
         'requested_at'      => $faker->dateTime('now', 'America/Bogota'),
+        'status_id'         => $faker->randomElement( $status ),
+        'user_id'           => $faker->randomElement( $users ),
     ];
 });

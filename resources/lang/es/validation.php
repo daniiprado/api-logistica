@@ -205,7 +205,10 @@ return [
         'subject'               => 'asunto',
         'message'               => 'mensaje',
         'per_page'              => 'por página',
-        'order_by'              =>  'ordenado por',
-        'direction'             =>  'dirección',
+        'order_by'              => 'ordenado por',
+        'direction'             => 'dirección',
+        'canceled'              => 'cancelado',
+        'active'                => 'vigente',
+        'modified'              => 'modificado',
     ],
 ];

@@ -12,6 +12,13 @@ class ProductsOrder extends Model implements Auditable
     use SoftDeletes, Auditor;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'products_order';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

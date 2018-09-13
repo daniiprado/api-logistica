@@ -118,7 +118,6 @@ class Handler extends ExceptionHandler
                 return $this->errorResponse(__('validation.handler.conflict'), 409);
 
             if ($exception instanceof QueryException) {
-                $code = $exception->errorInfo[1];
 
                 if ($exception->errorInfo[0] === "23503")
                     return $this->errorResponse(__('validation.handler.relation_not_delete'), 409);
@@ -129,13 +128,13 @@ class Handler extends ExceptionHandler
                 if ($exception->errorInfo[0] === "42S02")
                     return $this->errorResponse(__('validation.handler.column_not_found'), 409);
 
-                if ($code == 2002)
+                if ($exception->errorInfo[1] == 2002)
                     return $this->errorResponse( __('validation.handler.connection_refused', ['db' => 'MySQL'] ), 405);
 
-                if ($code == 1451)
+                if ($exception->errorInfo[1] == 1451)
                     return $this->errorResponse(__('validation.handler.relation_not_delete'), 409);
 
-                if ($code == 7)
+                if ($exception->errorInfo[1] == 7)
                     return $this->errorResponse(__('validation.handler.conflict'), 409);
 
                 if ($exception->getCode() == 7)

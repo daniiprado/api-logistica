@@ -12,6 +12,13 @@ class Status extends Model implements Auditable
     use SoftDeletes, Auditor;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'status';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -50,6 +57,17 @@ class Status extends Model implements Auditable
     public function generateTags() : array
     {
         return ['status'];
+    }
+
+    /*
+     * ---------------------------------------------------------
+     * Accessors and Mutator
+     * ---------------------------------------------------------
+     */
+
+    public function getNameAttribute()
+    {
+        return isset( $this->name ) ? ucfirst( __("validation.attributes.{$this->name}") ) : null;
     }
 
     /*

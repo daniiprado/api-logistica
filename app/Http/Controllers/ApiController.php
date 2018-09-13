@@ -97,14 +97,44 @@ class ApiController extends Controller
          return ( request()->has('query') ) ? (string) request()->get('query') : null;
     }
 
+    /**
+     * @param $query
+     * @return bool
+     */
+    protected function queryHasPipe($query )
+    {
+        return ( strpos( $query, '|') === false ) ? false : true;
+    }
+
+    /**
+     * @param $query
+     * @return bool
+     */
+    protected function queryHasNotPipe($query )
+    {
+        return ! $this->queryHasPipe( $query );
+    }
+
+    protected function modelHasColumn( $column, array $columns = [] )
+    {
+        return in_array( $column, $columns );
+    }
+
     protected function getModel(Model $model)
     {
-        $order_by = ( in_array( $this->order_by, $model->getFillable() ) ) ? $this->order_by : 'id';
+        $order_by = ( $this->modelHasColumn( $this->order_by, $model->getFillable() ) ) ? $this->order_by : 'id';
         $collection = ( $this->direction === 'asc' ) ? $model->orderBy( $order_by ) : $model->orderByDesc( $order_by );
-        if ( $this->query ) {
+        if ( $this->query && $this->queryHasNotPipe( $this->query ) ) {
             foreach ( $model->getFillable() as $column ) {
                 $collection->orWhere( $column, 'LIKE', '%' . $this->query . '%' );
             }
+        } else {
+            $query = explode('|', $this->query);
+            $column = isset( $query[0] ) ? $query[0] : 'id';
+            $value = isset( $query[1] ) ? $query[1] : '';
+            $collection = ( $this->modelHasColumn( $column, $model->getFillable() ) )
+                        ? $collection->where( $column, 'LIKE', '%' . $value . '%' )
+                        : $collection;
         }
         return $collection->paginate( $this->per_page );
     }

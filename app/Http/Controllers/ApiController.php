@@ -120,7 +120,7 @@ class ApiController extends Controller
         return in_array( $column, $columns );
     }
 
-    protected function getModel(Model $model)
+    protected function getModel(Model $model, array $relations = [])
     {
         $order_by = ( $this->modelHasColumn( $this->order_by, $model->getFillable() ) ) ? $this->order_by : 'id';
         $collection = ( $this->direction === 'asc' ) ? $model->orderBy( $order_by ) : $model->orderByDesc( $order_by );
@@ -136,6 +136,11 @@ class ApiController extends Controller
                         ? $collection->where( $column, 'LIKE', '%' . $value . '%' )
                         : $collection;
         }
+
+        if ( count( $relations ) > 0 ) {
+            $collection = $collection->with( $relations );
+        }
+
         return $collection->paginate( $this->per_page );
     }
 }

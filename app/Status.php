@@ -65,9 +65,9 @@ class Status extends Model implements Auditable
      * ---------------------------------------------------------
      */
 
-    public function getNameAttribute()
+    public function getNameAttribute( $name )
     {
-        return isset( $this->name ) ? ucfirst( __("validation.attributes.{$this->name}") ) : null;
+        return isset( $name ) ? ucfirst( __("validation.attributes.{$name}") ) : null;
     }
 
     /*

@@ -17,7 +17,13 @@ class PurchaseOrderController extends ApiController
     public function index()
     {
         return $this->collectionResponse(
-            PurchaseOrderResource::collection( $this->getModel( new PurchaseOrder ) ),
+            PurchaseOrderResource::collection( $this->getModel( new PurchaseOrder, [
+                'products_order' => function ( $query ) {
+                    return $query->with('product', 'issues');
+                },
+                'user:id,name',
+                'status:id,name'
+            ] ) ),
             200
         );
     }

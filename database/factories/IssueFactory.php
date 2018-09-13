@@ -16,7 +16,6 @@ use Faker\Generator as Faker;
 $factory->define(Logistic\Issue::class, function (Faker $faker) {
     return [
         'issue'         => $faker->paragraph,
-        'attachment'    => $faker->numerify('###########'),
-        'phone' => $faker->numerify('8######'),
+        'attachment'    => $faker->imageUrl(),
     ];
 });

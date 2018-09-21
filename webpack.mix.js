@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+let exec = require('child_process').exec;
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +12,29 @@ let mix = require('laravel-mix');
  |
  */
 
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                // Matches all PHP or JSON files in `resources/lang` directory.
+                test: /resources[\\\/]lang.+\.(php|json)$/,
+                loader: 'laravel-localization-loader',
+            }
+        ]
+    }
+});
+
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+    .scripts([
+        'resources/assets/js/framework/base/util.js',
+        'resources/assets/js/framework/components/general/header.js',
+        'resources/assets/js/framework/components/general/menu.js',
+        'resources/assets/js/framework/components/general/dropdown.js',
+        'resources/assets/js/framework/components/general/offcanvas.js',
+        'resources/assets/js/framework/components/general/portlet.js',
+        'resources/assets/js/framework/components/general/toggle.js',
+        'resources/assets/js/framework/components/general/quicksearch.js',
+        'resources/assets/js/framework/components/general/scroll-top.j',
+    ], 'public/js/scripts.bundle.js')
+    .sass('resources/assets/sass/vendors.scss', 'public/css/vendors.bundle.css')
+    .sass('resources/assets/sass/app.scss', 'public/css/style.bundle.css');

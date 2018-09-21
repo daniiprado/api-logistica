@@ -1,6 +1,6 @@
 
 window._ = require('lodash');
-window.Popper = require('popper.js').default;
+//window.Popper = require('popper.js').default;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -9,9 +9,9 @@ window.Popper = require('popper.js').default;
  */
 
 try {
-    window.$ = window.jQuery = require('jquery');
+    //window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap');
+    //require('bootstrap');
 } catch (e) {}
 
 /**
@@ -23,6 +23,8 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['Accept'] = 'application/json';
+window.axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that

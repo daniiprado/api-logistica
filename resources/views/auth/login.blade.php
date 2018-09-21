@@ -1,71 +1,57 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+    <div id="app" class="m-grid m-grid--hor m-grid--root m-page">
+        <div class="m-login m-login--signin  m-login--5" id="m_login" style="background-image: url({{ asset('img//bg/bg-3.jpg') }});">
+        <div class="m-login__wrapper-1 m-portlet-full-height">
+            <div class="m-login__wrapper-1-1">
+                <div class="m-login__contanier">
+                    <div class="m-login__content">
+                        <div class="m-login__logo">
+                            <a href="#">
+                                <img src="{{ asset('img/logos/logo-2.png') }}">
+                            </a>
+                        </div>
+                        <div class="m-login__title">
+                            <h3>{{ config('app.name', 'Contingencies') }}</h3>
+                        </div>
+                        <div class="m-login__desc">
+                            Amazing Stuff is Lorem Here.Grownng Team
+                        </div>
+                    </div>
+                </div>
+                <div class="m-login__border">
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div class="m-login__wrapper-2 m-portlet-full-height">
+            <div class="m-login__contanier">
+                <div class="m-login__signin">
+                    <div class="m-login__head">
+                        <h3 class="m-login__title">Login To Your Account</h3>
+                    </div>
+                    <login action="{{ route('login') }}">
                         @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                    </login>
+                </div>
+                <div class="m-login__forget-password">
+                    <div class="m-login__head">
+                        <h3 class="m-login__title">Forgotten Password ?</h3>
+                        <div class="m-login__desc">Enter your email to reset your password:</div>
+                    </div>
+                    <form class="m-login__form m-form" action="">
+                        <div class="form-group m-form__group">
+                            <input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            </div>
+                        <div class="m-login__form-action">
+                            <button id="m_login_forget_password_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Request</button>
+                            <button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom ">Cancel</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
 @endsection

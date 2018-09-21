@@ -210,5 +210,6 @@ return [
         'canceled'              => 'cancelado',
         'active'                => 'vigente',
         'modified'              => 'modificado',
+        'remember_me'           => 'recordame',
     ],
 ];

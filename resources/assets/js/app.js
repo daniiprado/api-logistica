@@ -7,7 +7,31 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};
+
+import Vue from 'vue'
+import es from 'vee-validate/dist/locale/es';
+import VeeValidate, {Validator} from 'vee-validate';
+import Lang from 'lang.js';
+import messages from './lang/messages';
+import GlobalComponents from './global-components';
+import Auth from './packages/auth/Auth';
+import BootstrapVue from 'bootstrap-vue'
+
+window.lang = new Lang({ messages });
+Validator.localize('es', es);
+Vue.use(VeeValidate);
+Vue.use(GlobalComponents);
+Vue.use(BootstrapVue);
+Vue.use(Auth);
+
+import App from './components/App'
+import router from './router'
+import store from './store'
+
+window.axios.defaults.headers.common['Authorization'] = store.getters.getToken;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,23 +39,11 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue')
-);
-
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue')
-);
-
-Vue.component(
-    'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue')
-);
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    components: { App },
+    router,
+    store
 });
